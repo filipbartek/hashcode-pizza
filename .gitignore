@@ -1,0 +1,8 @@
+# PyCharm
+/.idea/
+/venv/
+__pycache__/
+
+# pizza.py
+/data/*.in.*.txt
+/out/
