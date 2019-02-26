@@ -42,6 +42,7 @@ class Instance:
     @staticmethod
     def read(infile):
         R, C, L, H = [int(x) for x in next(infile).split()]
+        # https://github.com/alesolano/hashcode-pizza/blob/165d075f4531c6b1a01c64aa9186968efdff6ebf/pizzaMakineo.py
         p = np.empty([R, C], dtype=np.bool)
         for row in range(R):
             for ing, col in zip(infile.readline(), range(C)):
