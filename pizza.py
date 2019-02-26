@@ -23,6 +23,8 @@ def main():
     parser.add_argument('--solution', type=argparse.FileType('r', encoding='utf_8'))
     parser.add_argument('--generations', type=int, default=0)
     parser.add_argument('--nopopulate', action='store_true')
+    parser.add_argument('--out', '-o', type=argparse.FileType('w', encoding='utf_8'))
+    parser.add_argument('--outinfo', type=argparse.FileType('w', encoding='utf_8'))
 
     namespace = parser.parse_args()
 
@@ -42,9 +44,15 @@ def main():
     solution = solver.solve(instance, solution=solution)
     print(solution.score)
 
-    outfilename = f'{instance.name}.{solution.score}.txt'
-    with open(outfilename, 'w') as outfile:
-        solution.write(outfile)
+    outfile = namespace.out
+    if outfile is None:
+        outfilename = f'{instance.name}.{solution.score}.txt'
+        outfile = open(outfilename, 'w')
+
+    solution.write(outfile)
+
+    if namespace.outinfo is not None:
+        namespace.outinfo.write(f'Score: {solution.score}\n')
 
     solution.show()
     plt.show()
